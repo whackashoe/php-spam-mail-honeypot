@@ -6,11 +6,11 @@ Just drop honeypot.php into your project then go!
 Usage:
 
 contact-form.php
+
 	<?php
 	require_once('honeypot.php');
 	$honeypot = new honeypot(); 
 	?>
-
 	<form action="mailer.php" method="post">
 		<input type="text" name="<?=$honeypot->encode('name');?>">
 		<input type="text" name="<?=$honeypot->encode('email');?>">
