@@ -1,7 +1,8 @@
 php-spam-mail-honeypot
 ======================
 
-Just drop honeypot.php into your project then go!
+Foil bots with simple hashing of values, and spews that will make them wish they had a heart!
+
 
 Usage:
 
@@ -16,7 +17,7 @@ contact-form.php
 		<input type="text" name="<?=$honeypot->encode('email');?>">
 		<input type="text" name="<?=$honeypot->encode('message');?>">
 		<?=$honeypot->spew();?>
-		<input type="submit">
+		<input name="<?=$honeypot->encode('submit')?>" type="submit">
 	</form>
 
 mail-script.php
@@ -25,17 +26,19 @@ mail-script.php
 	require_once('honeypot.php');
 	$honeypot = new honeypot(); 
 	
-	if($honeypot->verify()) {
-		$name    = $_POST[$honeypot->encode('name')];
-		$email   = $_POST[$honeypot->encode('email')];
-		$message = $_POST[$honeypot->encode('message')];
-		
-		$to      = 'someone@somewebsite.com';
-		$subject = 'some subject';
-		$headers = 'From: ' . $email . "\r\n" .
-		    'Reply-To: ' . $email . "\r\n" .
-		    'X-Mailer: PHP/' . phpversion();
-	
-		mail($to, $subject, $message, $headers);
+    if(isset($_POST[$honeypot->encode('submit')])) {
+        if($honeypot->verify()) {
+            $name    = $_POST[$honeypot->encode('name')];
+            $email   = $_POST[$honeypot->encode('email')];
+            $message = $_POST[$honeypot->encode('message')];
+            
+            $to      = 'someone@somewebsite.com';
+            $subject = 'some subject';
+            $headers = 'From: ' . $email . "\r\n" .
+                'Reply-To: ' . $email . "\r\n" .
+                'X-Mailer: PHP/' . phpversion();
+        
+            mail($to, $subject, $message, $headers);
+        }
 	}
 	?>
