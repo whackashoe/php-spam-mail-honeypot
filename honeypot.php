@@ -13,6 +13,11 @@ class honeypot {
 
 	//don't change these, they are supposed to look real
 	public function __construct() {
+        //php now requires a set timezone
+        if(ini_get('date.timezone') == "")
+            if(@date_default_timezone_get() == "UTC" || @date_default_timezone_get() == "")
+                date_default_timezone_set('UTC');
+
 		array_push($this->hp, md5("username" . (date('z')-234)));
 		array_push($this->hp, md5("email" . (date('z')-234)));
 		array_push($this->hp, md5("message" . (date('z')-234)));
