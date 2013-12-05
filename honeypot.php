@@ -30,7 +30,7 @@ class honeypot {
 
 	//use make a bunch of hidden crap
 	public function spew() {
-		$h = '<style>.redihtoph{display:none!important;}</style>';
+		$h = '<style scoped>.redihtoph{display:none!important;}</style>';
 		foreach ($this->hp as $v) {
 			$h .= '<input type="text" name="'.$v.'" value="" class="redihtoph">';
 		}
